@@ -1,0 +1,14 @@
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "Minecraft"
+  username: "username"
+  password: "very secret"
+
+
+sound:
+  soundEnabled: true
+  successSound: "BLOCK_NOTE_BLOCK_PLING"
+  denySound: "BLOCK_NOTE_BLOCK_BASS"
+  pitch: 0.0
+  volume: 1.0

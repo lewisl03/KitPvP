@@ -1,0 +1,31 @@
+name: KitPvp
+version: '${project.version}'
+main: uk.lewisl.kitpvp.KitPvp
+api-version: 1.19
+authors: [ storm0chaser ]
+description: kit pvp plugin i guess
+website: lewisl.uk
+
+
+commands:
+  kit:
+    description: get ur kit looser
+    usage: /kit
+    aliases:
+      - kits
+  kitdelete:
+    description: deletes a kit
+    usage: /kitdelete (name)
+    aliases:
+      - kitdel
+      - kitremove
+  kitcreate:
+    description: create a kit
+    usage: /kitcreate (name)
+    aliases:
+      - kitsave
+  kitpvp:
+       description: main command for this plugin
+       usage: /kitpvp
+       aliases:
+         - kp
