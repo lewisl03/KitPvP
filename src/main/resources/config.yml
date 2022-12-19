@@ -12,3 +12,7 @@ sound:
   denySound: "BLOCK_NOTE_BLOCK_BASS"
   pitch: 0.0
   volume: 1.0
+
+moneySettings:
+  maxBalance: 999999999
+  baltopShowAmount: 8

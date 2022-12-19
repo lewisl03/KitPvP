@@ -40,7 +40,7 @@ public class KitCreate implements CommandExecutor {
         String kitName = args[0];
 
 
-        if(KitPvp.data.kits.containsKey(kitName)){
+        if(KitPvp.dataManager.data.kits.containsKey(kitName)){
             p.sendMessage("This kit already exists, please delete it first");
             return true;
         }
@@ -114,7 +114,7 @@ public class KitCreate implements CommandExecutor {
 
 
 
-        KitPvp.data.kits.put(kitName, kitItems);
+        KitPvp.dataManager.data.kits.put(kitName, kitItems);
 
 
 

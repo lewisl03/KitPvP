@@ -29,3 +29,10 @@ commands:
        usage: /kitpvp
        aliases:
          - kp
+  balance:
+    description: get your or another players balance
+    usage: /balance
+    aliases:
+      - bal
+      - coins
+      - coin

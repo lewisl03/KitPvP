@@ -1,5 +1,8 @@
 package uk.lewisl.kitpvp.util;
 
+import org.bukkit.Location;
+import org.bukkit.World;
+
 import java.text.DecimalFormat;
 
 public class Maths {
@@ -29,4 +32,5 @@ public class Maths {
         return formatter.format(amount);
 
     }
+
 }

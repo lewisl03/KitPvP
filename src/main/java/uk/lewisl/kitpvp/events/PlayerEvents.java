@@ -13,6 +13,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 import uk.lewisl.kitpvp.util.PlayerUtil;
 
@@ -46,13 +47,14 @@ public class PlayerEvents implements Listener {
 //instant mushroom stew healing
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
+        if(e.getClickedBlock() == null){return;}
 
         Player p = e.getPlayer();
         if (p.getHealth() == 20) {
         } else {
             int soup = +7;
 
-            if ((e.getAction()) == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType() == Material.MUSHROOM_STEW) {
+            if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType() == Material.MUSHROOM_STEW) {
                 p.setHealth(p.getHealth() + soup > p.getMaxHealth() ? p.getMaxHealth() : p.getHealth() + soup);
                // e.getPlayer().getItemInHand().setAmount(e.getPlayer().getItemInHand().getAmount() - 1);
                 e.getPlayer().getItemInHand().setType(Material.BOWL);
@@ -61,6 +63,19 @@ public class PlayerEvents implements Listener {
 
             }
         }
+
+        if(e.getClickedBlock().getType().equals(Material.CHEST) || e.getClickedBlock().getType().equals(Material.TRAPPED_CHEST) &&  e.getAction() == Action.RIGHT_CLICK_BLOCK){
+            if(!PlayerUtil.bypass(e.getPlayer())){
+                e.setCancelled(true);
+            }
+
+        }
+
+
+
+
+
+
     }
 
 
@@ -83,6 +98,9 @@ public class PlayerEvents implements Listener {
         e.getPlayer().sendMessage("You cannot drop items");
         e.setCancelled(true);
     }
+
+
+
 
 
 

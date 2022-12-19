@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import uk.lewisl.kitpvp.KitPvp;
 import uk.lewisl.kitpvp.commands.cmds.KitCreate;
 import uk.lewisl.kitpvp.commands.subCommands.Bypass;
+import uk.lewisl.kitpvp.commands.subCommands.Setup;
 import uk.lewisl.kitpvp.types.ArgumentComponent;
 import uk.lewisl.kitpvp.types.CmdHandler;
 
@@ -35,7 +36,7 @@ public class CmdManager implements CommandExecutor, TabCompleter {
 
 
         this.cmdsList.add(new Bypass());
-
+        this.cmdsList.add(new Setup());
 
 
         for (CmdHandler cmd: cmdsList) {

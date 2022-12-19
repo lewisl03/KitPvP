@@ -1,4 +1,4 @@
-package uk.lewisl.kitpvp.commands;
+package uk.lewisl.kitpvp.commands.cmds;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -35,7 +35,7 @@ public class Kit implements CommandExecutor {
         if (args.length < 1) {
             String builder = "";
 
-            for (String key : KitPvp.data.kits.keySet()) {
+            for (String key : KitPvp.dataManager.data.kits.keySet()) {
                 builder += key +", ";
             }
 
@@ -46,7 +46,7 @@ public class Kit implements CommandExecutor {
 
         String kitName = args[0];
 
-        if(!KitPvp.data.kits.containsKey(kitName)){
+        if(!KitPvp.dataManager.data.kits.containsKey(kitName)){
             p.sendMessage("Kit does not exist");
             return true;
         }
@@ -54,7 +54,7 @@ public class Kit implements CommandExecutor {
 
 
 
-        for(KitItem kitItem :  KitPvp.data.kits.get(kitName)){
+        for(KitItem kitItem :  KitPvp.dataManager.data.kits.get(kitName)){
 
             if(kitItem == null) continue;
 

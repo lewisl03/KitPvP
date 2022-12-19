@@ -34,7 +34,7 @@ public class KitDelete  implements CommandExecutor {
         String kitName = args[0];
 
 
-        if(!KitPvp.data.kits.containsKey(kitName)){
+        if(!KitPvp.dataManager.data.kits.containsKey(kitName)){
             p.sendMessage("This kit does not exists");
             return true;
         }
@@ -42,7 +42,7 @@ public class KitDelete  implements CommandExecutor {
 
 
 
-        KitPvp.data.kits.remove(kitName);
+        KitPvp.dataManager.data.kits.remove(kitName);
         p.sendMessage(kitName+" has been deleted");
 
 
