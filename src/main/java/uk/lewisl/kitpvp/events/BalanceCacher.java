@@ -26,6 +26,8 @@ public class BalanceCacher implements Listener {
 
     @EventHandler
     public void playerKillPlayer(PlayerDeathEvent e){
+        //if the player /kills or dies and doesn't actually have a killer
+        if(!(e.getEntity().getKiller() instanceof Player)){return;}
 
         //check if theyre both players
         if(!e.getEntity().getType().equals(EntityType.PLAYER) && !e.getEntity().getKiller().getType().equals(EntityType.PLAYER))return;

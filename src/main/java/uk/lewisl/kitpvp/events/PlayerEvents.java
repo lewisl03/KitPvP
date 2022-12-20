@@ -90,9 +90,15 @@ public class PlayerEvents implements Listener {
 
     @EventHandler
     public void playerDeathEvent(PlayerDeathEvent e){
-
+        //clear all their drops
         e.getDrops().clear();
         e.setNewExp(0);
+
+
+        //set has kit to false
+        PvPPlayer player = KitPvp.dataManager.data.getPlayer(e.getEntity());
+        player.setHasKit(false);
+
     }
 
     @EventHandler
@@ -104,7 +110,7 @@ public class PlayerEvents implements Listener {
 
 
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void playerJoinEvent(PlayerJoinEvent e){
         PvPPlayer player = KitPvp.dataManager.data.getPlayer(e.getPlayer());
         if(player.isPlayerBypass()){
@@ -117,9 +123,19 @@ public class PlayerEvents implements Listener {
                 e.getPlayer().sendMessage("Your bypass has been removed due to lack of permissions");
             }
         }
-
+        //teleport them to spawn
         e.getPlayer().teleport(KitPvp.dataManager.data.storage.getSpawn().getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+
+        //clear their inventory
+        e.getPlayer().getInventory().clear();
+        e.getPlayer().updateInventory();
+        player.setHasKit(false);
+        player.setSelectedKit(null);
+
     }
+
+
+
 
 
 

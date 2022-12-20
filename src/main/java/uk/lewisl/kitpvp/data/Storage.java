@@ -9,11 +9,12 @@ import java.util.UUID;
 public class Storage {
     RLocation spawn;
     Region spawnRegion;
-    public HashSet<UUID> bypass = new HashSet<>();
+    public HashSet<UUID> bypass;
 
-    public Storage(RLocation spawn, Region spawnRegion) {
+    public Storage(RLocation spawn, Region spawnRegion, HashSet<UUID> bypass) {
         this.spawn = spawn;
         this.spawnRegion = spawnRegion;
+        this.bypass = bypass;
     }
 
     public RLocation getSpawn() {

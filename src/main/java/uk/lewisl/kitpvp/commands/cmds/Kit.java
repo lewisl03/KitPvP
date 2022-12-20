@@ -11,8 +11,10 @@ import org.bukkit.potion.Potion;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.lewisl.kitpvp.KitPvp;
 import uk.lewisl.kitpvp.types.KitItem;
+import uk.lewisl.kitpvp.types.PvPPlayer;
 import uk.lewisl.kitpvp.types.items.EnchantedItem;
 import uk.lewisl.kitpvp.types.items.PotionItem;
+import uk.lewisl.kitpvp.util.PlayerUtil;
 
 public class Kit implements CommandExecutor {
 
@@ -31,6 +33,7 @@ public class Kit implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
+        PvPPlayer player = KitPvp.dataManager.data.getPlayer(p);
 
         if (args.length < 1) {
             String builder = "";
@@ -45,91 +48,12 @@ public class Kit implements CommandExecutor {
         }
 
         String kitName = args[0];
-
-        if(!KitPvp.dataManager.data.kits.containsKey(kitName)){
-            p.sendMessage("Kit does not exist");
-            return true;
-        }
-
-
-
-
-        for(KitItem kitItem :  KitPvp.dataManager.data.kits.get(kitName)){
-
-            if(kitItem == null) continue;
-
-            if(kitItem.slot >= 100){
-
-                //set their armour as we can't loop through it :( well we can but i'm lazy atm
-
-                ItemStack is = new ItemStack(kitItem.item.getMaterial(),kitItem.item.getAmount(),kitItem.item.getDamage(),kitItem.item.getData());
-
-                if(kitItem.item instanceof EnchantedItem){
-                    EnchantedItem enchantedItem = (EnchantedItem) kitItem.item;
-                    is.addEnchantments(enchantedItem.getEnchantments());
-                }
-
-                if(kitItem.slot == 100) {
-
-                    p.getInventory().setBoots(new ItemStack(is));
-                    continue;
-                }
-
-                if(kitItem.slot == 101) {
-                    p.getInventory().setLeggings(is);
-                    continue;
-                }
-
-                if(kitItem.slot == 102) {
-
-                    p.getInventory().setChestplate(is);
-                    continue;
-                }
-
-                if(kitItem.slot == 103) {
-
-                    p.getInventory().setHelmet(is);
-                    continue;
-                }
-
-            }
-            ItemStack item = new ItemStack(kitItem.item.getMaterial(), kitItem.item.getAmount(), kitItem.item.getDamage(), kitItem.item.getData());
-
-            if(kitItem.item.getMaterial().equals(Material.POTION)){
-
-                PotionItem potionItem = (PotionItem) kitItem.item;
-
-                PotionMeta potionmeta = (PotionMeta) item.getItemMeta();
-                Potion pot = new Potion(Potion.fromItemStack(item).getType(), potionItem.getPotionLevel(),potionItem.isSplashPotion());
-                pot.apply(item);
-            }
-
-
-            if(kitItem.item instanceof EnchantedItem){
-                EnchantedItem enchantedItem = (EnchantedItem) kitItem.item;
-                item.addEnchantments(enchantedItem.getEnchantments());
-            }
-
-
-
-
-
-            p.getInventory().setItem(kitItem.slot, item);
-
-        }
-
-
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                p.updateInventory();
-            }
-        }.runTaskLater(KitPvp.getPlugin(KitPvp.class), 0);
-
-
-
+        player.giveKitAsync(kitName);
         p.sendMessage("You have been given kit "+ kitName);
+        player.setSelectedKit(kitName);
+        player.setHasKit(true);
+
+
 
 
 

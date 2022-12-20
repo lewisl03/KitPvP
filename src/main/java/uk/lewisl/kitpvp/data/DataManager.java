@@ -18,6 +18,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.logging.Level;
 
 public class DataManager {
@@ -87,7 +88,7 @@ public class DataManager {
         storageJson = new File(KitPvp.getPlugin().getDataFolder(), "storage.json");
 
         if(!(storageJson.exists())){
-            data.storage = new Storage(new RLocation("world",0.0,0.0,0.0), new Region(new RLocation("world", 0,0,0), new RLocation("world", 1,1,1)));
+            data.storage = new Storage(new RLocation("world",0.0,0.0,0.0), new Region(new RLocation("world", 0,0,0), new RLocation("world", 1,1,1)), new HashSet<>());
 
             storageJson.getParentFile().mkdirs();
             KitPvp.getPlugin().saveResource(storageJson.getName(), false);
@@ -107,10 +108,7 @@ public class DataManager {
 
         if(data.storage == null){
             System.out.println("Unable to load storage");
-            data.storage = new Storage(new RLocation("world",0.0,0.0,0.0), new Region(new RLocation("world", 0,0,0), new RLocation("world", 1,1,1)));
-
-            data.storage.spawn = new RLocation("world",0.0,0.0,0.0);
-            data.storage.spawnRegion = new Region(new RLocation("world", 0,0,0), new RLocation("world", 1,1,1));
+            data.storage = new Storage(new RLocation("world",0.0,0.0,0.0), new Region(new RLocation("world", 0,0,0), new RLocation("world", 1,1,1)), new HashSet<>());
 
         }
 

@@ -43,3 +43,17 @@ commands:
     description: check if youre in combat
     usage: /combattag
     aliases: [ct]
+  spawn:
+    description: Sends a player to spawn
+    usage: /spawn
+    aliases: []
+
+permissions:
+  KitPvp.default:
+    children:
+      KitPvp.spawn: true
+      KitPvp.combatTag: true
+  KitPvp.admin:
+    KitPvp.bypass: true
+    KitPvp.spawnOther: true
+

@@ -61,6 +61,7 @@ public final class KitPvp extends JavaPlugin {
         Bukkit.getPluginCommand("coins").setExecutor(new Balance());
         Bukkit.getPluginCommand("stats").setExecutor(new Stats());
         Bukkit.getPluginCommand("combattag").setExecutor(new CombatTag());
+        Bukkit.getPluginCommand("spawn").setExecutor(new Spawn());
 
         //events nerd
         PluginManager manager = this.getServer().getPluginManager();
@@ -70,6 +71,8 @@ public final class KitPvp extends JavaPlugin {
         manager.registerEvents(new BalanceCacher(), this);
         manager.registerEvents(new EntityNoSpawn(), this);
         manager.registerEvents(new UseWandEvent(), this);
+        manager.registerEvents(new LogInOutMessages(), this);
+        manager.registerEvents(new CombatTagEvents(), this);
 
 
 

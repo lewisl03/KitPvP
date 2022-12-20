@@ -3,7 +3,9 @@ package uk.lewisl.kitpvp.runnable;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import uk.lewisl.kitpvp.KitPvp;
+import uk.lewisl.kitpvp.commands.cmds.Kit;
 import uk.lewisl.kitpvp.data.DataManager;
 import uk.lewisl.kitpvp.types.PvPPlayer;
 import uk.lewisl.kitpvp.types.RLocation;
@@ -25,7 +27,34 @@ public class PlayerLocationChecker extends BukkitTask{
         for(Player player : Bukkit.getOnlinePlayers())
         {
             if(KitPvp.dataManager.data.storage.bypass.contains(player.getUniqueId()))continue;
-            System.out.println(player.getName()+" "+Maths.isInRect(player, region));
+
+
+            PvPPlayer p = KitPvp.dataManager.data.getPlayer(player);
+            boolean inArea = Maths.isInRect(player,region);
+            //if they have bypass then we don't do anything
+            if(p.isPlayerBypass()){continue;}
+
+            //if player is not in spawn
+            if(!inArea){
+
+
+                //if they don't have a last selected kit tp them back to spawn
+                if(p.getSelectedKit() == null || !KitPvp.dataManager.data.kits.containsKey(p.getSelectedKit())){
+                    p.getPlayer().teleport(KitPvp.dataManager.data.storage.getSpawn().getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                    player.sendMessage("You must select a kit before leaving spawn");
+                    continue;
+                }
+
+
+                if(!p.hasKit()){
+                    p.giveKitAsync(p.getSelectedKit());
+                    player.sendMessage("You have been given Kit "+ p.getSelectedKit());
+                    p.setHasKit(true);
+
+                }
+            }
+
+
 
 
 

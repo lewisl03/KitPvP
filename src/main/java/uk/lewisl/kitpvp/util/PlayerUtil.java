@@ -22,7 +22,7 @@ public class PlayerUtil {
         }
         return null;
     }
-    public static OfflinePlayer getPlayerFromUUID(String name){
+    public static OfflinePlayer getPlayerFromName(String name){
         if(Bukkit.getPlayer(name) != null){
             return Bukkit.getPlayer(name);
         }else if(Bukkit.getOfflinePlayer(name) != null){

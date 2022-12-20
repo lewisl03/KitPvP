@@ -20,7 +20,7 @@ public class Balance implements CommandExecutor {
         if(commandSender instanceof Player){
 
             if(strings.length >= 1){
-                OfflinePlayer targetPlayer = PlayerUtil.getPlayerFromUUID(strings[0]);
+                OfflinePlayer targetPlayer = PlayerUtil.getPlayerFromName(strings[0]);
                 if(targetPlayer == null){
                     commandSender.sendMessage(Text.convertString("Target does not exist"));
                     return true;
