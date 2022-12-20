@@ -27,6 +27,7 @@ public class PvPPlayer {
     private long assists;
     private String selectedKit;
     private boolean hasKit;
+    private UUID lastPersonToHit;
     private HashMap<UUID, Integer> assisted = new HashMap<>();
 
 
@@ -91,6 +92,10 @@ public class PvPPlayer {
         KitPvp.mysql.addDeath(uuid, amount);
     }
 
+    public void clearAssisted(){
+        assisted.clear();
+    }
+
     public long getKills() {
         return kills;
     }
@@ -118,7 +123,7 @@ public class PvPPlayer {
                 highestUUID = map.getKey();
             }
         }
-        return highest <= KitPvp.configManager.getConfig().getInt("assists.hitsForAssist") ? highestUUID : null;
+        return highest >= KitPvp.configManager.getConfig().getInt("assists.hitsForAssist") ? highestUUID : null;
     }
 
 
@@ -165,6 +170,10 @@ public class PvPPlayer {
 
     public void setHasKit(boolean hasKit) {
         this.hasKit = hasKit;
+    }
+
+    public UUID getLastPersonToHit() {
+        return lastPersonToHit;
     }
 
     public boolean giveKitAsync(String kitName){
@@ -253,7 +262,7 @@ public class PvPPlayer {
     }
 
     public double getKDR(){
-        return (double) kills == 0 ?(double) deaths : (double)deaths == 0 ? (double)kills : (double)kills/(double)deaths;
+        return (double) kills == 0 ?(double) -deaths : (double)deaths == 0 ? (double)kills : (double)kills/(double)deaths;
     }
 
     @Override

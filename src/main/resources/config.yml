@@ -25,3 +25,6 @@ combatTag:
   summonLighteningOnLogout: true
 assists:
   hitsForAssist: 10
+
+messages:
+  

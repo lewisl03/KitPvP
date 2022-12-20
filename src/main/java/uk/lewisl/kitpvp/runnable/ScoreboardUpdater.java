@@ -6,6 +6,7 @@ import uk.lewisl.kitpvp.KitPvp;
 import uk.lewisl.kitpvp.commands.cmds.Kit;
 import uk.lewisl.kitpvp.types.Scoreboard;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,10 +18,22 @@ public class ScoreboardUpdater extends BukkitTask{
     @Override
     public void run() {
 
-        for(Map.Entry<UUID, FastBoard> entry : KitPvp.dataManager.data.scoreBoards.entrySet()){
-            if(Bukkit.getPlayer(entry.getKey()) == null){Scoreboard.removeScoreboard(Bukkit.getPlayer(entry.getKey())); continue;}
-            Scoreboard.updateScoreboard(entry.getValue(), Bukkit.getPlayer(entry.getKey()));
+
+        Iterator it = KitPvp.dataManager.data.scoreBoards.entrySet().iterator();
+        while (it.hasNext()){
+            UUID key = (UUID) it.next();
+            if(!KitPvp.dataManager.data.scoreBoards.containsKey(key)){ continue;}
+
+            FastBoard value = KitPvp.dataManager.data.scoreBoards.get(key);
+            if(Bukkit.getPlayer(key) == null){Scoreboard.removeScoreboard(Bukkit.getPlayer(key)); continue;}
+            Scoreboard.updateScoreboard(value, Bukkit.getPlayer(key));
+
+
         }
+
+
+
+
 
     }
 }

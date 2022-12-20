@@ -41,7 +41,10 @@ public class Stats implements CommandExecutor {
             PvPPlayer player = KitPvp.dataManager.data.getPlayer(p);
             p.sendMessage(Text.convertString(p.getName()+"'s Stats\n" +
                     "Kills: "+ player.getKills()+"\n" +
-                    "Deaths: "+player.getDeaths()+"\n"));
+                    "Deaths: "+player.getDeaths()+"\n" +
+                    "Assists: "+player.getAssists()+"\n" +
+                    "KDR: "+player.getKDR()+"\n"
+            ));
 
             Sound.playSuccessSound(p);
             return true;

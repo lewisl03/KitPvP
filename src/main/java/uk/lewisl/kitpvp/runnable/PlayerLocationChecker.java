@@ -12,6 +12,9 @@ import uk.lewisl.kitpvp.types.RLocation;
 import uk.lewisl.kitpvp.types.Region;
 import uk.lewisl.kitpvp.util.Maths;
 
+import java.util.Iterator;
+import java.util.UUID;
+
 public class PlayerLocationChecker extends BukkitTask{
     public PlayerLocationChecker(long delay, long period) {
         super(delay, period);
@@ -24,8 +27,14 @@ public class PlayerLocationChecker extends BukkitTask{
        if(region.getPos1() == null || region.getPos2() == null) return;
 
 
-        for(Player player : Bukkit.getOnlinePlayers())
-        {
+        Iterator it = Bukkit.getOnlinePlayers().iterator();
+
+
+
+        while (it.hasNext()){
+            Player player = (Player) it.next();
+            if(player == null) continue;
+
             if(KitPvp.dataManager.data.storage.bypass.contains(player.getUniqueId()))continue;
 
 
@@ -53,19 +62,6 @@ public class PlayerLocationChecker extends BukkitTask{
 
                 }
             }
-
-
-
-
-
-
-
-
-
         }
-
-
-
-
     }
 }

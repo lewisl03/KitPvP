@@ -55,11 +55,15 @@ public class BalanceCacher implements Listener {
         }
 
 
-        e.setDeathMessage(ChatColor.RED + killed.getName() + " has been slain by " + killer.getName() + assistorUUID != null ? " assisted by "+ PlayerUtil.getPlayerFromUUID(assistorUUID).getName() : "");
+
+        e.setDeathMessage(ChatColor.RED + killed.getName() + " has been slain by " + killer.getName() + (assistorUUID != null ? " assisted by "+ PlayerUtil.getPlayerFromUUID(assistorUUID).getName() : ""));
         //add death to player killed
         KitPvp.dataManager.data.getPlayer(killed).addDeath(1);
         //add kill to the killer
         KitPvp.dataManager.data.getPlayer(killer).addKill(1);
+
+        //clear all the assisted players
+        killedP.clearAssisted();
     }
 
 

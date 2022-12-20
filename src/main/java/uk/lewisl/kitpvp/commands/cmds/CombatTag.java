@@ -14,7 +14,7 @@ public class CombatTag implements CommandExecutor {
 
         PvPPlayer player = KitPvp.dataManager.data.getPlayer((Player) commandSender);
 
-        commandSender.sendMessage(player.isCombatTagged() ? "You're in combat for "+player.getCombatTime()+" seconds" : "You're not in combat");
+        commandSender.sendMessage(player.isCombatTagged() ? "You're in combat for "+(player.getCombatTime() - System.currentTimeMillis() / 1000) +" seconds" : "You're not in combat");
 
         return true;
     }
