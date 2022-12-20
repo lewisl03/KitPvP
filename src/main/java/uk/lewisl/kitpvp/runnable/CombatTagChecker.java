@@ -1,5 +1,6 @@
 package uk.lewisl.kitpvp.runnable;
 
+import org.bukkit.Bukkit;
 import uk.lewisl.kitpvp.KitPvp;
 import uk.lewisl.kitpvp.commands.cmds.Kit;
 
@@ -17,29 +18,13 @@ public class CombatTagChecker extends BukkitTask{
     @Override
     public void run() {
 
-        KitPvp.dataManager.data.combatTag.entrySet().removeIf(entries -> (entries.getValue() <= System.currentTimeMillis()));
-        /*
 
-        Iterator<Map.Entry<UUID, Long>> it = KitPvp.dataManager.data.combatTag.entrySet().iterator();
-
-
-
-
-        while (it.hasNext()){
-             Map.Entry<UUID, Long> entry = it.next();
-             //check if its been removed
-             if(!KitPvp.dataManager.data.combatTag.containsKey(entry.getKey())){ continue;}
-
-
-            if(entry.getValue() <= System.currentTimeMillis()){
-                KitPvp.dataManager.data.combatTag.remove(entry.getKey());
-            }
-
-
-
+        for(Map.Entry<UUID, Long> map : KitPvp.dataManager.data.combatTag.entrySet()){
+            if(Bukkit.getPlayer(map.getKey()) != null && map.getValue() <= System.currentTimeMillis()) Bukkit.getPlayer(map.getKey()).sendMessage("You are no longer in combat");
         }
 
-         */
+
+        KitPvp.dataManager.data.combatTag.entrySet().removeIf(entries -> (entries.getValue() <= System.currentTimeMillis()));
 
 
     }
