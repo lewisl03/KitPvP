@@ -18,12 +18,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class PvPPlayer {
-    UUID uuid;
-    long balance;
-    long kills;
-    long deaths;
-    String selectedKit;
-    boolean hasKit;
+    private UUID uuid;
+    private long balance;
+    private long kills;
+    private long deaths;
+    private String selectedKit;
+    private boolean hasKit;
 
 
     public PvPPlayer(UUID uuid, long balance, long kills, long deaths) {
@@ -72,6 +72,8 @@ public class PvPPlayer {
     public void addKill(long amount){
         kills += amount;
         KitPvp.mysql.addKill(uuid, amount);
+        //add money to them cus theyre poor
+        addBal(KitPvp.configManager.getConfig().getLong("moneySettings.coinsPerKill") * amount);
     }
 
     public void addDeath(long amount){

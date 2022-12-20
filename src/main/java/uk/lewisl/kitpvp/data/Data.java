@@ -1,14 +1,12 @@
 package uk.lewisl.kitpvp.data;
 
+import fr.mrmicky.fastboard.FastBoard;
 import org.bukkit.entity.Player;
 import uk.lewisl.kitpvp.KitPvp;
 import uk.lewisl.kitpvp.types.PvPPlayer;
 import uk.lewisl.kitpvp.types.KitItem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.*;
 
 public class Data {
 
@@ -16,6 +14,7 @@ public class Data {
    public HashSet<PvPPlayer> playersCache = new HashSet<>();
    public Storage storage;
    public HashMap<UUID, Long> combatTag = new HashMap<>();
+   public final Map<UUID, FastBoard> scoreBoards = new HashMap<>();
 
    public void addPlayer(Player p){
       for (PvPPlayer player : playersCache) {

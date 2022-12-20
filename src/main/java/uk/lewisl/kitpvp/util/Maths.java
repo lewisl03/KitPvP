@@ -57,9 +57,17 @@ public class Maths {
         if(player.getLocation().getZ() > dim[1] || player.getLocation().getZ() < dim[0])
             return false;
 
-        /*TODO same thing with y*/
+        //cba to do Y
 
         return true;
     }
+
+    public static double getKDR(long kills, long deaths){
+        return (double) kills == 0 ?(double) deaths : (double)deaths == 0 ? (double)kills : (double)kills/(double)deaths;
+    }
+
+
+
+
 
 }

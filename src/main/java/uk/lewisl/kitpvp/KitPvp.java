@@ -10,12 +10,12 @@ import uk.lewisl.kitpvp.data.ConfigManager;
 import uk.lewisl.kitpvp.data.DataManager;
 import uk.lewisl.kitpvp.data.MySQL;
 import uk.lewisl.kitpvp.events.*;
-import uk.lewisl.kitpvp.runnable.BukkitTask;
 import uk.lewisl.kitpvp.runnable.CombatTagChecker;
 import uk.lewisl.kitpvp.runnable.PlayerLocationChecker;
+import uk.lewisl.kitpvp.runnable.ScoreboardUpdater;
 import uk.lewisl.kitpvp.types.Region;
+import uk.lewisl.kitpvp.types.Scoreboard;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 
@@ -28,7 +28,7 @@ public final class KitPvp extends JavaPlugin {
     private HashMap<Player, Region> setupRegions = new HashMap<>();
     private PlayerLocationChecker playerLocationChecker;
     private CombatTagChecker combatTagChecker;
-
+    private ScoreboardUpdater scoreboardUpdater;
 
     @Override
     public void onEnable() {
@@ -48,7 +48,8 @@ public final class KitPvp extends JavaPlugin {
 
         setupTasks();
 
-
+        //load all the scoreboards for all players
+        Scoreboard.loadAll();
 
 
 
@@ -71,7 +72,7 @@ public final class KitPvp extends JavaPlugin {
         manager.registerEvents(new BalanceCacher(), this);
         manager.registerEvents(new EntityNoSpawn(), this);
         manager.registerEvents(new UseWandEvent(), this);
-        manager.registerEvents(new LogInOutMessages(), this);
+        manager.registerEvents(new LogInOutEvents(), this);
         manager.registerEvents(new CombatTagEvents(), this);
 
 
@@ -90,12 +91,14 @@ public final class KitPvp extends JavaPlugin {
 
         if(this.playerLocationChecker != null){this.playerLocationChecker.cancel();}
         if(this.combatTagChecker != null){this.combatTagChecker.cancel();}
+        if(this.scoreboardUpdater != null){this.scoreboardUpdater.cancel();}
     }
 
 
     private void setupTasks(){
         this.playerLocationChecker = new PlayerLocationChecker(0, 2L);
         this.combatTagChecker = new CombatTagChecker(0, 5L);
+        this.scoreboardUpdater = new ScoreboardUpdater(0, 20L);
         System.out.println("Setup async tasks!");
     }
 
