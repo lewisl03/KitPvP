@@ -57,7 +57,11 @@ public class Maths {
         if(player.getLocation().getZ() > dim[1] || player.getLocation().getZ() < dim[0])
             return false;
 
-        //cba to do Y
+        dim[0] = region.getPos1().getY();
+        dim[1] = region.getPos2().getY();
+        Arrays.sort(dim);
+        if(player.getLocation().getY() > dim[1] || player.getLocation().getY() < dim[0])
+            return false;
 
         return true;
     }

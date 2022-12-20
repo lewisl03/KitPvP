@@ -225,7 +225,7 @@ public class MySQL {
 
         sql = "INSERT INTO `KitPvp` (`UUID`, `Balance`, `Kills`, `Deaths`, `Assists`) VALUES" +
                 " ('"+uuid+"', '"+p.getPlayerBalance()+"', '"+p.getKills()+"', '"+p.getDeaths()+"', '"+p.getAssists()+"')" +
-                " ON DUPLICATE Key UPDATE `Balance`= '"+p.getPlayerBalance()+"', `Kills`= '"+p.getKills()+"', `Deaths`= '"+p.getDeaths()+"', '"+p.getAssists()+"'";
+                " ON DUPLICATE Key UPDATE `Balance`= '"+p.getPlayerBalance()+"', `Kills`= '"+p.getKills()+"', `Deaths`= '"+p.getDeaths()+"', `Assists`= '"+p.getAssists()+"'";
         execute(sql);
 
 

@@ -14,6 +14,7 @@ public class LogInOutEvents implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void playerJoinEvent(PlayerJoinEvent e){
+        e.setJoinMessage(null);
         Text.sendGlobalMessage("&8[&2+&8]&7 "+ e.getPlayer().getName());
         //add them to the scoreboard thing
         Scoreboard.addScoreboard(e.getPlayer());
@@ -23,6 +24,7 @@ public class LogInOutEvents implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void playerLeaveEvent(PlayerQuitEvent e){
+        e.setQuitMessage(null);
         Text.sendGlobalMessage("&8[&4-&8]&7 "+ e.getPlayer().getName());
 
         //remove them from the scoreboard thing

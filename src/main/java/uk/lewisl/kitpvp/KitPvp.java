@@ -74,7 +74,7 @@ public final class KitPvp extends JavaPlugin {
         manager.registerEvents(new UseWandEvent(), this);
         manager.registerEvents(new LogInOutEvents(), this);
         manager.registerEvents(new CombatTagEvents(), this);
-
+        manager.registerEvents(new DeathScreenCancel(), this);
 
 
 
