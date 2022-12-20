@@ -30,5 +30,13 @@ public class PlayerUtil {
         }
         return null;
     }
+    public static OfflinePlayer getPlayerFromUUID(UUID name){
+        if(Bukkit.getPlayer(name) != null){
+            return Bukkit.getPlayer(name);
+        }else if(Bukkit.getOfflinePlayer(name) != null){
+            return Bukkit.getOfflinePlayer(name);
+        }
+        return null;
+    }
 
 }

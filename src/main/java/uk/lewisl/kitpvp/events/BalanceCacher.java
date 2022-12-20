@@ -1,5 +1,6 @@
 package uk.lewisl.kitpvp.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -11,6 +12,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import uk.lewisl.kitpvp.KitPvp;
+import uk.lewisl.kitpvp.commands.cmds.Kit;
+import uk.lewisl.kitpvp.types.PvPPlayer;
+import uk.lewisl.kitpvp.util.PlayerUtil;
+
+import java.util.UUID;
 
 public class BalanceCacher implements Listener {
 
@@ -34,7 +40,22 @@ public class BalanceCacher implements Listener {
         Player killed = e.getEntity().getPlayer();
         Player killer = e.getEntity().getKiller();
 
-        e.setDeathMessage(ChatColor.RED + killed.getName() + " has been slain by " + killer.getName());
+        PvPPlayer killedP = KitPvp.dataManager.data.getPlayer(killed);
+
+
+        //if its not null then we give the assistor points and a assist
+        UUID assistorUUID = killedP.getHighestAssists(killer.getUniqueId());
+        if(assistorUUID != null){
+            PvPPlayer highestAssist = KitPvp.dataManager.data.getPlayer(PlayerUtil.getPlayerFromUUID(assistorUUID));
+            highestAssist.addAssist(1);
+            Player assistorPlayer = Bukkit.getPlayer(assistorUUID);
+            if(assistorPlayer != null){
+                assistorPlayer.sendMessage("You helped killed "+ killed.getName());
+            }
+        }
+
+
+        e.setDeathMessage(ChatColor.RED + killed.getName() + " has been slain by " + killer.getName() + assistorUUID != null ? " assisted by "+ PlayerUtil.getPlayerFromUUID(assistorUUID).getName() : "");
         //add death to player killed
         KitPvp.dataManager.data.getPlayer(killed).addDeath(1);
         //add kill to the killer

@@ -14,23 +14,28 @@ import uk.lewisl.kitpvp.types.items.PotionItem;
 import uk.lewisl.kitpvp.util.Maths;
 import uk.lewisl.kitpvp.util.PlayerUtil;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
 public class PvPPlayer {
-    private UUID uuid;
+    private final UUID uuid;
     private long balance;
     private long kills;
     private long deaths;
+    private long assists;
     private String selectedKit;
     private boolean hasKit;
+    private HashMap<UUID, Integer> assisted = new HashMap<>();
 
 
-    public PvPPlayer(UUID uuid, long balance, long kills, long deaths) {
+    public PvPPlayer(UUID uuid, long balance, long kills, long deaths, long assists) {
         this.uuid = uuid;
         this.balance = balance;
         this.kills = kills;
         this.deaths = deaths;
+        this.assists = assists;
     }
 
     public UUID getUUID() {
@@ -75,6 +80,11 @@ public class PvPPlayer {
         //add money to them cus theyre poor
         addBal(KitPvp.configManager.getConfig().getLong("moneySettings.coinsPerKill") * amount);
     }
+    public void addAssist(long amount){
+        assists += amount;
+        KitPvp.mysql.addAssist(uuid, amount);
+        addBal(KitPvp.configManager.getConfig().getLong("moneySettings.coinsPerAssist") * amount);
+    }
 
     public void addDeath(long amount){
         deaths += amount;
@@ -88,6 +98,29 @@ public class PvPPlayer {
     public long getDeaths() {
         return deaths;
     }
+
+    public long getAssists() {
+        return assists;
+    }
+
+    public void addAssisted(UUID player, int amount){
+        if(assisted.containsKey(player)) assisted.put(player, assisted.get(player) + amount);
+        else
+            assisted.put(player, amount);
+    }
+
+    public UUID getHighestAssists(UUID killer){
+        int highest = -1;
+        UUID highestUUID = null;
+        for(Map.Entry<UUID, Integer> map : assisted.entrySet()){
+            if(!killer.equals(map.getKey()) && map.getValue() > highest){
+                highest = map.getValue();
+                highestUUID = map.getKey();
+            }
+        }
+        return highest <= KitPvp.configManager.getConfig().getInt("assists.hitsForAssist") ? highestUUID : null;
+    }
+
 
     public void save(){
         KitPvp.mysql.savePlayer(uuid);
@@ -219,7 +252,9 @@ public class PvPPlayer {
 
     }
 
-
+    public double getKDR(){
+        return (double) kills == 0 ?(double) deaths : (double)deaths == 0 ? (double)kills : (double)kills/(double)deaths;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,6 +1,7 @@
 package uk.lewisl.kitpvp.data;
 
 import fr.mrmicky.fastboard.FastBoard;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import uk.lewisl.kitpvp.KitPvp;
 import uk.lewisl.kitpvp.types.PvPPlayer;
@@ -30,6 +31,15 @@ public class Data {
 
 
    public PvPPlayer getPlayer(Player p){
+
+      for (PvPPlayer player : playersCache) {
+         if (player.getUUID().equals(p.getUniqueId()))
+            return player;
+      }
+
+      return KitPvp.mysql.getPlayer(p.getUniqueId());
+   }
+   public PvPPlayer getPlayer(OfflinePlayer p){
 
       for (PvPPlayer player : playersCache) {
          if (player.getUUID().equals(p.getUniqueId()))

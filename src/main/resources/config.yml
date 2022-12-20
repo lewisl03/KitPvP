@@ -23,3 +23,5 @@ combatTag:
   TagTime: 10
   killOnLogout: true
   summonLighteningOnLogout: true
+assists:
+  hitsForAssist: 10

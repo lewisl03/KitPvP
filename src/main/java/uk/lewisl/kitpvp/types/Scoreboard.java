@@ -21,7 +21,7 @@ public class Scoreboard {
                 "", // Empty line
                 ChatColor.LIGHT_PURPLE+"Kills: "+ChatColor.WHITE+ player.getKills(),
                 ChatColor.LIGHT_PURPLE+"Deaths: "+ ChatColor.WHITE+player.getDeaths(),
-                ChatColor.LIGHT_PURPLE+"KDR: "+ ChatColor.WHITE+Maths.getKDR(player.getKills(), player.getDeaths()),
+                ChatColor.LIGHT_PURPLE+"KDR: "+ ChatColor.WHITE+player.getKDR(),
                 ChatColor.LIGHT_PURPLE+"Coins: "+ ChatColor.WHITE+player.getPlayerBalance(),
                 ""
         );
@@ -36,7 +36,7 @@ public class Scoreboard {
                 "", // Empty line
                 ChatColor.LIGHT_PURPLE+"Kills: "+ChatColor.WHITE+ player.getKills(),
                 ChatColor.LIGHT_PURPLE+"Deaths: "+ ChatColor.WHITE+player.getDeaths(),
-                ChatColor.LIGHT_PURPLE+"KDR: "+ ChatColor.WHITE+Maths.getKDR(player.getKills(), player.getDeaths()),
+                ChatColor.LIGHT_PURPLE+"KDR: "+ ChatColor.WHITE+player.getKDR(),
                 ChatColor.LIGHT_PURPLE+"Coins: "+ ChatColor.WHITE+player.getPlayerBalance(),
                 ""
         );

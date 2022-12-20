@@ -62,9 +62,7 @@ public class Maths {
         return true;
     }
 
-    public static double getKDR(long kills, long deaths){
-        return (double) kills == 0 ?(double) deaths : (double)deaths == 0 ? (double)kills : (double)kills/(double)deaths;
-    }
+
 
 
 

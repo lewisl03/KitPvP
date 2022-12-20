@@ -26,7 +26,10 @@ public class Stats implements CommandExecutor {
                     PvPPlayer p = KitPvp.dataManager.data.getPlayer(targetPlayer.getPlayer());
                     commandSender.sendMessage(targetPlayer.getName()+"'s Stats\n" +
                             "Kills: "+ p.getKills()+"\n" +
-                            "Deaths: "+p.getDeaths()+"\n");
+                            "Deaths: "+p.getDeaths()+"\n" +
+                            "Assists: "+p.getAssists()+"\n" +
+                            "KDR: "+p.getKDR()+"\n"
+                    );
                     return true;
                 }
 
