@@ -24,6 +24,9 @@ public class PlayerEvents implements Listener {
     public void onPlayerDamageEvent(EntityDamageEvent e) {
         if(!(e.getEntity().getType().equals(EntityType.PLAYER))) return;
         Player p = (Player) e.getEntity();
+        PvPPlayer player = KitPvp.dataManager.data.getPlayer(p);
+
+        if(player.isInSpawn()){e.setCancelled(true); return;}
 
 
         if(e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING) ||
@@ -56,7 +59,7 @@ public class PlayerEvents implements Listener {
         } else {
             int soup = +7;
 
-            if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType() == Material.MUSHROOM_STEW) {
+            if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK && p.getItemInHand().getType().equals(Material.MUSHROOM_SOUP)) {
                 p.setHealth(p.getHealth() + soup > p.getMaxHealth() ? p.getMaxHealth() : p.getHealth() + soup);
                // e.getPlayer().getItemInHand().setAmount(e.getPlayer().getItemInHand().getAmount() - 1);
                 e.getPlayer().getItemInHand().setType(Material.BOWL);
@@ -72,10 +75,6 @@ public class PlayerEvents implements Listener {
             }
 
         }
-
-
-
-
 
 
     }

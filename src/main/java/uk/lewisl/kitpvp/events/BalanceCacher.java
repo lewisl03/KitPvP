@@ -27,7 +27,12 @@ public class BalanceCacher implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void playerQuitEvent(PlayerQuitEvent e){
-        KitPvp.dataManager.data.playersCache.remove(KitPvp.dataManager.data.getPlayer(e.getPlayer()));
+        Bukkit.getScheduler().scheduleSyncDelayedTask(KitPvp.getPlugin(), new Runnable() {
+            @Override
+            public void run() {
+                KitPvp.dataManager.data.playersCache.remove(KitPvp.dataManager.data.getPlayer(e.getPlayer()));
+            }
+        }, 40L);
     }
 
     @EventHandler

@@ -29,6 +29,7 @@ public class PvPPlayer {
     private boolean hasKit;
     private UUID lastPersonToHit;
     private HashMap<UUID, Integer> assisted = new HashMap<>();
+    private boolean inSpawn;
 
 
     public PvPPlayer(UUID uuid, long balance, long kills, long deaths, long assists) {
@@ -127,6 +128,14 @@ public class PvPPlayer {
     }
 
 
+    public boolean isInSpawn() {
+        return inSpawn;
+    }
+
+    public void setInSpawn(boolean inSpawn) {
+        this.inSpawn = inSpawn;
+    }
+
     public void save(){
         KitPvp.mysql.savePlayer(uuid);
     }
@@ -174,6 +183,10 @@ public class PvPPlayer {
 
     public UUID getLastPersonToHit() {
         return lastPersonToHit;
+    }
+
+    public void setLastPersonToHit(UUID lastPersonToHit) {
+        this.lastPersonToHit = lastPersonToHit;
     }
 
     public boolean giveKitAsync(String kitName){
@@ -263,6 +276,9 @@ public class PvPPlayer {
 
     public double getKDR(){
         return (double) kills == 0 ?(double) -deaths : (double)deaths == 0 ? (double)kills : (double)kills/(double)deaths;
+    }
+    public String getKDRString(){
+        return String.format("%.2f", (double) kills == 0 ?(double) -deaths : (double)deaths == 0 ? (double)kills : (double)kills/(double)deaths);
     }
 
     @Override

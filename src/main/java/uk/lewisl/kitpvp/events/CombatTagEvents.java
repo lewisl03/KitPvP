@@ -21,10 +21,13 @@ public class CombatTagEvents implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void playerQuitEvent(PlayerQuitEvent e){
         PvPPlayer player = KitPvp.dataManager.data.getPlayer(e.getPlayer());
+
         if(player.isCombatTagged()){
             if(KitPvp.configManager.getConfig().getBoolean("combatTag.killOnLogout")) {
                 player.addDeath(1);
-                System.out.println(player.getLastPersonToHit()+" UUID");
+
+
+
                 PvPPlayer target = KitPvp.dataManager.data.getPlayer(PlayerUtil.getPlayerFromUUID(player.getLastPersonToHit()));
                 target.addKill(1);
 
@@ -55,9 +58,12 @@ public class CombatTagEvents implements Listener {
         PvPPlayer damager = KitPvp.dataManager.data.getPlayer((Player) e.getDamager());
 
 
+
         //set combat tag
         player.setCombatTag();
         damager.setCombatTag();
+        player.setLastPersonToHit(damager.getUUID());
+        System.out.println("Method >> "+ player.getLastPersonToHit());
 
         if(!player.isCombatTagged())
             p.sendMessage("You have been combat tagged for " + KitPvp.configManager.getConfig().getLong("combatTag.TagTime") + " seconds");

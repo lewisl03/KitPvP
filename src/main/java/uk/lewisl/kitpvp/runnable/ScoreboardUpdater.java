@@ -19,14 +19,14 @@ public class ScoreboardUpdater extends BukkitTask{
     public void run() {
 
 
-        Iterator it = KitPvp.dataManager.data.scoreBoards.entrySet().iterator();
+        Iterator<Map.Entry<UUID, FastBoard>> it = KitPvp.dataManager.data.scoreBoards.entrySet().iterator();
         while (it.hasNext()){
-            UUID key = (UUID) it.next();
-            if(!KitPvp.dataManager.data.scoreBoards.containsKey(key)){ continue;}
+            Map.Entry<UUID, FastBoard> entry = it.next();
+            if(!KitPvp.dataManager.data.scoreBoards.containsKey(entry.getKey())){ continue;}
 
-            FastBoard value = KitPvp.dataManager.data.scoreBoards.get(key);
-            if(Bukkit.getPlayer(key) == null){Scoreboard.removeScoreboard(Bukkit.getPlayer(key)); continue;}
-            Scoreboard.updateScoreboard(value, Bukkit.getPlayer(key));
+
+            if(Bukkit.getPlayer(entry.getKey()) == null){Scoreboard.removeScoreboard(Bukkit.getPlayer(entry.getKey())); continue;}
+            Scoreboard.updateScoreboard(entry.getValue(), Bukkit.getPlayer(entry.getKey()));
 
 
         }

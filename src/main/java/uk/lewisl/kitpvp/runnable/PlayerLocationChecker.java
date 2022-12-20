@@ -13,6 +13,7 @@ import uk.lewisl.kitpvp.types.Region;
 import uk.lewisl.kitpvp.util.Maths;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.UUID;
 
 public class PlayerLocationChecker extends BukkitTask{
@@ -45,6 +46,7 @@ public class PlayerLocationChecker extends BukkitTask{
 
             //if player is not in spawn
             if(!inArea){
+                p.setInSpawn(false);
 
 
                 //if they don't have a last selected kit tp them back to spawn
@@ -61,7 +63,11 @@ public class PlayerLocationChecker extends BukkitTask{
                     p.setHasKit(true);
 
                 }
+            }else{
+                //set that theyre in spawn so they can't take damage
+                p.setInSpawn(true);
             }
+
         }
     }
 }

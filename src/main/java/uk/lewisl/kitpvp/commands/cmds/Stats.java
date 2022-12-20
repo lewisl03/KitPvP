@@ -28,7 +28,7 @@ public class Stats implements CommandExecutor {
                             "Kills: "+ p.getKills()+"\n" +
                             "Deaths: "+p.getDeaths()+"\n" +
                             "Assists: "+p.getAssists()+"\n" +
-                            "KDR: "+p.getKDR()+"\n"
+                            "KDR: "+p.getKDRString()+"\n"
                     );
                     return true;
                 }
@@ -43,7 +43,7 @@ public class Stats implements CommandExecutor {
                     "Kills: "+ player.getKills()+"\n" +
                     "Deaths: "+player.getDeaths()+"\n" +
                     "Assists: "+player.getAssists()+"\n" +
-                    "KDR: "+player.getKDR()+"\n"
+                    "KDR: "+player.getKDRString()+"\n"
             ));
 
             Sound.playSuccessSound(p);

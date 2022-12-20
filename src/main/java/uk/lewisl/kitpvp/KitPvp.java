@@ -6,6 +6,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.lewisl.kitpvp.commands.CmdManager;
 import uk.lewisl.kitpvp.commands.cmds.*;
+import uk.lewisl.kitpvp.commands.subCommands.Test;
 import uk.lewisl.kitpvp.data.ConfigManager;
 import uk.lewisl.kitpvp.data.DataManager;
 import uk.lewisl.kitpvp.data.MySQL;
@@ -63,6 +64,7 @@ public final class KitPvp extends JavaPlugin {
         Bukkit.getPluginCommand("stats").setExecutor(new Stats());
         Bukkit.getPluginCommand("combattag").setExecutor(new CombatTag());
         Bukkit.getPluginCommand("spawn").setExecutor(new Spawn());
+
 
         //events nerd
         PluginManager manager = this.getServer().getPluginManager();

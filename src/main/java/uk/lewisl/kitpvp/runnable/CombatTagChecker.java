@@ -16,22 +16,30 @@ public class CombatTagChecker extends BukkitTask{
 
     @Override
     public void run() {
-        Iterator it = KitPvp.dataManager.data.combatTag.entrySet().iterator();
+
+        KitPvp.dataManager.data.combatTag.entrySet().removeIf(entries -> (entries.getValue() <= System.currentTimeMillis()));
+        /*
+
+        Iterator<Map.Entry<UUID, Long>> it = KitPvp.dataManager.data.combatTag.entrySet().iterator();
+
+
+
+
         while (it.hasNext()){
-             UUID key = (UUID) it.next();
+             Map.Entry<UUID, Long> entry = it.next();
              //check if its been removed
-             if(!KitPvp.dataManager.data.combatTag.containsKey(key)){ continue;}
-
-             long value = KitPvp.dataManager.data.combatTag.get(key);
+             if(!KitPvp.dataManager.data.combatTag.containsKey(entry.getKey())){ continue;}
 
 
-            if(value <= System.currentTimeMillis()){
-                KitPvp.dataManager.data.combatTag.remove(key);
+            if(entry.getValue() <= System.currentTimeMillis()){
+                KitPvp.dataManager.data.combatTag.remove(entry.getKey());
             }
 
 
 
         }
+
+         */
 
 
     }

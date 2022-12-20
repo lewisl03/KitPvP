@@ -47,7 +47,6 @@ commands:
     description: Sends a player to spawn
     usage: /spawn
     aliases: []
-
 permissions:
   KitPvp.default:
     children:

@@ -37,7 +37,7 @@ public class Spawn implements CommandExecutor {
         PvPPlayer player = KitPvp.dataManager.data.getPlayer((Player) commandSender);
 
         //check combat tag
-        if(player.isCombatTagged()){p.sendMessage("You are currently in combat for "+ (player.getCombatTime() - System.currentTimeMillis() / 1000)+" seconds"); return true;}
+        if(player.isCombatTagged()){p.sendMessage("You are currently in combat for "+ ((player.getCombatTime() - System.currentTimeMillis() )/ 1000)+" seconds"); return true;}
 
         //then we send them to spawn
         p.teleport(KitPvp.dataManager.data.storage.getSpawn().getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);

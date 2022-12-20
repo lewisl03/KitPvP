@@ -22,7 +22,7 @@ public class Scoreboard {
                 ChatColor.LIGHT_PURPLE+"Kills: "+ChatColor.WHITE+ player.getKills(),
                 ChatColor.LIGHT_PURPLE+"Deaths: "+ ChatColor.WHITE+player.getDeaths(),
                 ChatColor.LIGHT_PURPLE+"Assists: "+ ChatColor.WHITE+player.getAssists(),
-                ChatColor.LIGHT_PURPLE+"KDR: "+ ChatColor.WHITE+player.getKDR(),
+                ChatColor.LIGHT_PURPLE+"KDR: "+ ChatColor.WHITE+player.getKDRString(),
                 ChatColor.LIGHT_PURPLE+"Coins: "+ ChatColor.WHITE+player.getPlayerBalance(),
                 ""
         );
@@ -38,7 +38,7 @@ public class Scoreboard {
                 ChatColor.LIGHT_PURPLE+"Kills: "+ChatColor.WHITE+ player.getKills(),
                 ChatColor.LIGHT_PURPLE+"Deaths: "+ ChatColor.WHITE+player.getDeaths(),
                 ChatColor.LIGHT_PURPLE+"Assists: "+ ChatColor.WHITE+player.getAssists(),
-                ChatColor.LIGHT_PURPLE+"KDR: "+ ChatColor.WHITE+player.getKDR(),
+                ChatColor.LIGHT_PURPLE+"KDR: "+ ChatColor.WHITE+player.getKDRString(),
                 ChatColor.LIGHT_PURPLE+"Coins: "+ ChatColor.WHITE+player.getPlayerBalance(),
                 ""
         );
