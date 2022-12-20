@@ -13,9 +13,9 @@ import java.util.UUID;
 public class Data {
 
    public HashMap<String, ArrayList<KitItem>> kits;
-   public HashSet<UUID> bypass = new HashSet<>();
    public HashSet<PvPPlayer> playersCache = new HashSet<>();
    public Storage storage;
+   public HashMap<UUID, Long> combatTag = new HashMap<>();
 
    public void addPlayer(Player p){
       for (PvPPlayer player : playersCache) {

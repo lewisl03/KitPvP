@@ -17,8 +17,6 @@ public class Balance implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
 
-
-
         if(commandSender instanceof Player){
 
             if(strings.length >= 1){

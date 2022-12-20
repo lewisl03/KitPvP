@@ -38,3 +38,8 @@ commands:
   stats:
     description: get the stats of yourself or another player
     usage: /stats
+
+  combattag:
+    description: check if youre in combat
+    usage: /combattag
+    aliases: [ct]

@@ -9,11 +9,11 @@ import java.util.ArrayList;
 public class Bypass extends CmdHandler {
     @Override
     public void onCommand(Player p, String[] args, String s) {
-        if(KitPvp.dataManager.data.bypass.contains(p.getUniqueId())){
-            KitPvp.dataManager.data.bypass.remove(p.getUniqueId());
+        if(KitPvp.dataManager.data.storage.bypass.contains(p.getUniqueId())){
+            KitPvp.dataManager.data.storage.bypass.remove(p.getUniqueId());
             p.sendMessage("Bypass has been turned off");
         }else{
-            KitPvp.dataManager.data.bypass.add(p.getUniqueId());
+            KitPvp.dataManager.data.storage.bypass.add(p.getUniqueId());
             p.sendMessage("Bypass has been turned on");
         }
 

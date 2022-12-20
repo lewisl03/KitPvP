@@ -1,6 +1,7 @@
 package uk.lewisl.kitpvp.types;
 
 import uk.lewisl.kitpvp.KitPvp;
+import uk.lewisl.kitpvp.commands.cmds.Kit;
 import uk.lewisl.kitpvp.util.Maths;
 
 import java.util.Objects;
@@ -77,6 +78,27 @@ public class PvPPlayer {
 
     public void save(){
         KitPvp.mysql.savePlayer(uuid);
+    }
+
+    public boolean isCombatTagged(){
+       return KitPvp.dataManager.data.combatTag.containsKey(uuid);
+    }
+    public void setCombatTag(){
+        //add a combat time for x seconds * by 1000 to convert milli seconds to seconds
+      KitPvp.dataManager.data.combatTag.put(uuid, System.currentTimeMillis() + (KitPvp.configManager.getConfig().getLong("combatTag.TagTime") * 1000));
+    }
+    public long getCombatTime(){
+       return KitPvp.dataManager.data.combatTag.get(uuid);
+    }
+
+    public boolean isPlayerBypass(){
+        return KitPvp.dataManager.data.storage.bypass.contains(uuid);
+    }
+    public void setPlayerBypass(boolean enabled){
+        if(enabled)
+            KitPvp.dataManager.data.storage.bypass.add(uuid);
+        else
+            KitPvp.dataManager.data.storage.bypass.remove(uuid);
     }
 
 

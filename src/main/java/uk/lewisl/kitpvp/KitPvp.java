@@ -10,9 +10,12 @@ import uk.lewisl.kitpvp.data.ConfigManager;
 import uk.lewisl.kitpvp.data.DataManager;
 import uk.lewisl.kitpvp.data.MySQL;
 import uk.lewisl.kitpvp.events.*;
+import uk.lewisl.kitpvp.runnable.BukkitTask;
+import uk.lewisl.kitpvp.runnable.CombatTagChecker;
 import uk.lewisl.kitpvp.runnable.PlayerLocationChecker;
 import uk.lewisl.kitpvp.types.Region;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 
@@ -24,6 +27,7 @@ public final class KitPvp extends JavaPlugin {
     public CmdManager cmdManager;
     private HashMap<Player, Region> setupRegions = new HashMap<>();
     private PlayerLocationChecker playerLocationChecker;
+    private CombatTagChecker combatTagChecker;
 
 
     @Override
@@ -56,7 +60,7 @@ public final class KitPvp extends JavaPlugin {
         Bukkit.getPluginCommand("kitdelete").setExecutor(new KitDelete());
         Bukkit.getPluginCommand("coins").setExecutor(new Balance());
         Bukkit.getPluginCommand("stats").setExecutor(new Stats());
-
+        Bukkit.getPluginCommand("combattag").setExecutor(new CombatTag());
 
         //events nerd
         PluginManager manager = this.getServer().getPluginManager();
@@ -82,12 +86,13 @@ public final class KitPvp extends JavaPlugin {
         dataManager.saveData();
 
         if(this.playerLocationChecker != null){this.playerLocationChecker.cancel();}
-
+        if(this.combatTagChecker != null){this.combatTagChecker.cancel();}
     }
 
 
     private void setupTasks(){
-        this.playerLocationChecker = new PlayerLocationChecker(0, 5L);
+        this.playerLocationChecker = new PlayerLocationChecker(0, 2L);
+        this.combatTagChecker = new CombatTagChecker(0, 5L);
         System.out.println("Setup async tasks!");
     }
 

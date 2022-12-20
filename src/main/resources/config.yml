@@ -18,3 +18,8 @@ moneySettings:
   baltopShowAmount: 8
   coinsPerKill: 10
   coinsPerAssist: 4
+
+combatTag:
+  TagTime: 10
+  killOnLogout: true
+  summonLighteningOnLogout: true

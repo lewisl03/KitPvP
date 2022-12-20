@@ -3,6 +3,7 @@ package uk.lewisl.kitpvp.events;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -10,10 +11,11 @@ import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.meta.ItemMeta;
+import uk.lewisl.kitpvp.KitPvp;
+import uk.lewisl.kitpvp.commands.cmds.Kit;
+import uk.lewisl.kitpvp.types.PvPPlayer;
 import uk.lewisl.kitpvp.util.PlayerUtil;
 
 public class PlayerEvents implements Listener {
@@ -26,6 +28,7 @@ public class PlayerEvents implements Listener {
 
         if(e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING) ||
                 e.getCause().equals(EntityDamageEvent.DamageCause.FALL) ||
+                e.getCause().equals(EntityDamageEvent.DamageCause.LIGHTNING) ||
                 e.getCause().equals(EntityDamageEvent.DamageCause.LAVA)){
             if (!PlayerUtil.bypass(p)) {
                 e.setCancelled(true);
@@ -97,6 +100,28 @@ public class PlayerEvents implements Listener {
         e.getPlayer().sendMessage("You cannot drop items");
         e.setCancelled(true);
     }
+
+
+
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void playerJoinEvent(PlayerJoinEvent e){
+        PvPPlayer player = KitPvp.dataManager.data.getPlayer(e.getPlayer());
+        if(player.isPlayerBypass()){
+            //if they have the bypass don't send them to spawn
+            if(e.getPlayer().hasPermission("KitPvp.admin")) {
+                e.getPlayer().sendMessage("Your bypass is enabled");
+                return;
+            } else {
+                player.setPlayerBypass(false);
+                e.getPlayer().sendMessage("Your bypass has been removed due to lack of permissions");
+            }
+        }
+
+        e.getPlayer().teleport(KitPvp.dataManager.data.storage.getSpawn().getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+    }
+
+
 
 
 

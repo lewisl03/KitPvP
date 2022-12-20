@@ -10,7 +10,7 @@ import java.util.UUID;
 public class PlayerUtil {
 
     public static boolean bypass(Player p){
-        return KitPvp.dataManager.data.bypass.contains(p.getUniqueId());
+        return KitPvp.dataManager.data.storage.bypass.contains(p.getUniqueId());
     }
 
 
