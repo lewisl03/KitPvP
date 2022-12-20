@@ -16,3 +16,5 @@ sound:
 moneySettings:
   maxBalance: 999999999
   baltopShowAmount: 8
+  coinsPerKill: 10
+  coinsPerAssist: 4

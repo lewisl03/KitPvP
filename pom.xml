@@ -73,13 +73,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
-            <groupId>net.kettlemc</groupId>
-            <artifactId>nocroptrample</artifactId>
-            <scope>system</scope>
-            <version>latest</version>
-            <systemPath>${project.basedir}/../libs/SimpleNoCropTrample.jar</systemPath>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10</version>
         </dependency>
+
+
 
     </dependencies>
 </project>

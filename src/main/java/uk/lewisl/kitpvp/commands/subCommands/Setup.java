@@ -1,14 +1,15 @@
 package uk.lewisl.kitpvp.commands.subCommands;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import uk.lewisl.kitpvp.KitPvp;
-import uk.lewisl.kitpvp.data.DataManager;
+import uk.lewisl.kitpvp.commands.cmds.Kit;
 import uk.lewisl.kitpvp.types.CmdHandler;
+import uk.lewisl.kitpvp.types.RLocation;
 import uk.lewisl.kitpvp.types.Region;
-import uk.lewisl.kitpvp.types.SpawnType;
 
 import java.util.ArrayList;
 
@@ -28,11 +29,11 @@ public class Setup extends CmdHandler {
     @Override
     public void onCommand(Player p, String[] args, String s) {
 
-        if(args.length == 0){
-            SpawnType spawn = KitPvp.dataManager.data.storage.spawn;
-            Region spawnR = KitPvp.dataManager.data.storage.spawnRegion;
+        if(args.length <= 1){
+            RLocation spawn = KitPvp.dataManager.data.storage.getSpawn();
+            Region spawnR = KitPvp.dataManager.data.storage.getSpawnRegion();
             p.sendMessage("Current setup\n" +
-                    "Spawn: world: +"+spawn.getWorld()+"+ X: "+ spawn.getX()+" Y: "+ spawn.getY()+ " Z: "+ spawn.getZ()+"\n" +
+                    "Spawn: world: +"+spawn.getWorld().getName()+"+ X: "+ spawn.getX()+" Y: "+ spawn.getY()+ " Z: "+ spawn.getZ()+"\n" +
                     "Spawn Region: " + spawnR.getPos1().toString()+" \n"+
                     spawnR.getPos2().toString()+
                     "");
@@ -43,15 +44,31 @@ public class Setup extends CmdHandler {
         }
 
 
-
-        if(args[0].equalsIgnoreCase("wand")){
+        if(args[1].equalsIgnoreCase("wand")){
             p.getInventory().addItem(WAND);
             p.sendMessage("You have been given spawn region wand");
         }
 
-        if(args[0].equalsIgnoreCase("setspawn")){
-            p.getInventory().addItem(WAND);
-            p.sendMessage("You have been given spawn region wand");
+        if(args[1].equalsIgnoreCase("setspawnregion")){
+            Region region = KitPvp.getPlugin().getRegion(p);
+            if(region.getPos1() == null){
+                p.sendMessage("Position 1 has not been set");
+                return;
+            }else if(region.getPos2() == null) {
+                p.sendMessage("Position 2 has not been set");
+                return;
+            }
+
+            KitPvp.dataManager.data.storage.setSpawnRegion(region);
+            p.sendMessage("Spawn region has successfully been set");
+        }
+
+
+        if(args[1].equalsIgnoreCase("setspawn")){
+            Location loc = p.getLocation();
+            KitPvp.dataManager.data.storage.setSpawn(new RLocation(loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ()));
+            p.sendMessage("You have set spawn to "+ loc.getX()+":"+loc.getY()+":"+loc.getZ());
+            return;
         }
 
 

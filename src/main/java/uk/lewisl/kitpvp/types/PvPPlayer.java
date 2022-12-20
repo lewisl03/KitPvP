@@ -11,6 +11,8 @@ public class PvPPlayer {
     long balance;
     long kills;
     long deaths;
+    String selectedKit;
+
 
     public PvPPlayer(UUID uuid, long balance, long kills, long deaths) {
         this.uuid = uuid;

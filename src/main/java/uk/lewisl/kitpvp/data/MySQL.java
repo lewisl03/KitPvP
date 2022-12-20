@@ -36,6 +36,8 @@ public class MySQL {
                 KitPvp.getPlugin().getPluginLoader().disablePlugin(KitPvp.getPlugin());
             }else{
 
+                KitPvp.logger(Level.INFO, "Connected to MySQL");
+
             }
 
             return conn;
@@ -108,7 +110,7 @@ public class MySQL {
         execute(sql);
     }
     public void addDeath(UUID uuid, long amount){
-        sql = "UPDATE `KitPvp` SET `Deaths` = `Deaths`-"+amount+" WHERE `UUID`=  '"+uuid+"'";
+        sql = "UPDATE `KitPvp` SET `Deaths` = `Deaths`+"+amount+" WHERE `UUID`=  '"+uuid+"'";
         execute(sql);
     }
     public void addBalance(UUID uuid, long amount){
@@ -195,11 +197,11 @@ public class MySQL {
     public PvPPlayer getPlayer(UUID uuid){
         sql = "SELECT `Balance`, `Kills`, `Deaths` FROM `KitPvp` WHERE `UUID` = '"+uuid+"'";
         ResultSet rs = executeQuery(sql);
-        long bal = -1, kills= -1, deaths = -1;
+        long bal = -1, kills = -1, deaths = -1;
 
         try {
             if(!rs.last()){
-                return null;
+                return new PvPPlayer(uuid, 0, 0 ,0);
             }
             bal = rs.getLong("Balance");
             kills = rs.getLong("Kills");
@@ -208,15 +210,20 @@ public class MySQL {
             e.printStackTrace();
         }
 
-        return  bal == -1 ? new PvPPlayer(uuid, 0, 0 ,0) : new PvPPlayer(uuid, bal, kills ,deaths);
+        System.out.println("MYSQL: "+ bal);
+
+        System.out.println();
+
+        return new PvPPlayer(uuid, bal, kills ,deaths);
     }
 
     public void savePlayer(UUID uuid){
         PvPPlayer p = KitPvp.dataManager.data.getOnlinePlayer(uuid);
         if(p == null){System.out.println("Error: Uncached player "+ Bukkit.getPlayer(uuid).getDisplayName());}
 
-        sql = "INSERT INTO `KitPvp` (`UUID`, `Balance`, `Kills`, `Deaths`) VALUES ('"+uuid+"', '"+p.getPlayerBalance()+"', '"+p.getKills()+"', '"+p.getDeaths()+"')" +
-                "ON DUPLICATE `UUID` UPDATE `Balance`= '"+p.getPlayerBalance()+"' `Kills`= '"+p.getKills()+"' `Deaths`= '"+p.getDeaths()+"'";
+        sql = "INSERT INTO `KitPvp` (`UUID`, `Balance`, `Kills`, `Deaths`) VALUES" +
+                " ('"+uuid+"', '"+p.getPlayerBalance()+"', '"+p.getKills()+"', '"+p.getDeaths()+"')" +
+                " ON DUPLICATE Key UPDATE `Balance`= '"+p.getPlayerBalance()+"', `Kills`= '"+p.getKills()+"', `Deaths`= '"+p.getDeaths()+"'";
         execute(sql);
 
 

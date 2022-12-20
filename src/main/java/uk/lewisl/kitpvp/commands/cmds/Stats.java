@@ -1,6 +1,5 @@
 package uk.lewisl.kitpvp.commands.cmds;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,12 +11,9 @@ import uk.lewisl.kitpvp.util.PlayerUtil;
 import uk.lewisl.kitpvp.util.Sound;
 import uk.lewisl.kitpvp.util.Text;
 
-public class Balance implements CommandExecutor {
+public class Stats implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-
-
-
 
         if(commandSender instanceof Player){
 
@@ -28,7 +24,9 @@ public class Balance implements CommandExecutor {
                     return true;
                 }else{
                     PvPPlayer p = KitPvp.dataManager.data.getPlayer(targetPlayer.getPlayer());
-                    commandSender.sendMessage(targetPlayer.getName()+" has "+ p.getPlayerStringBalance()+" Coins");
+                    commandSender.sendMessage(targetPlayer.getName()+"'s Stats\n" +
+                            "Kills: "+ p.getKills()+"\n" +
+                            "Deaths: "+p.getDeaths()+"\n");
                     return true;
                 }
 
@@ -37,8 +35,10 @@ public class Balance implements CommandExecutor {
 
 
             Player p = (Player) commandSender;
-            PvPPlayer playerBalance = KitPvp.dataManager.data.getPlayer(p);
-            p.sendMessage(Text.convertString("You have "+playerBalance.getPlayerStringBalance())+" Coins");
+            PvPPlayer player = KitPvp.dataManager.data.getPlayer(p);
+            p.sendMessage(Text.convertString(p.getName()+"'s Stats\n" +
+                    "Kills: "+ player.getKills()+"\n" +
+                    "Deaths: "+player.getDeaths()+"\n"));
 
             Sound.playSuccessSound(p);
             return true;
@@ -46,11 +46,10 @@ public class Balance implements CommandExecutor {
 
 
 
-        System.out.println("Command cannot be used in console");
-        return true;
+
+
+        return false;
 
 
     }
-
-
 }

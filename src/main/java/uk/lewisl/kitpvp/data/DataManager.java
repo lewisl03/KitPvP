@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 import uk.lewisl.kitpvp.KitPvp;
 import uk.lewisl.kitpvp.types.KitItem;
 import uk.lewisl.kitpvp.types.PvPPlayer;
+import uk.lewisl.kitpvp.types.RLocation;
 import uk.lewisl.kitpvp.types.Region;
-import uk.lewisl.kitpvp.types.SpawnType;
 import uk.lewisl.kitpvp.types.items.Item;
 
 import java.io.*;
@@ -76,7 +76,6 @@ public class DataManager {
             kit.add(new KitItem(0, new Item(Material.STONE_SWORD,1, s, b)));
             kit.add(new KitItem(1, new Item(Material.GOLDEN_APPLE, 8, s, b)));
             data.kits.put("Example", kit);
-            data.kits.put("Example", kit);
             data.kits.put("default", kit);
 
         }
@@ -88,9 +87,7 @@ public class DataManager {
         storageJson = new File(KitPvp.getPlugin().getDataFolder(), "storage.json");
 
         if(!(storageJson.exists())){
-            data.storage = new Storage();
-            data.storage.spawn = new SpawnType("world",0.0,0.0,0.0);
-            data.storage.spawnRegion = new Region(new Location(Bukkit.getWorld("world"), 0,0,0), new Location(Bukkit.getWorld("world"), 1,1,1));
+            data.storage = new Storage(new RLocation("world",0.0,0.0,0.0), new Region(new RLocation("world", 0,0,0), new RLocation("world", 1,1,1)));
 
             storageJson.getParentFile().mkdirs();
             KitPvp.getPlugin().saveResource(storageJson.getName(), false);
@@ -98,9 +95,9 @@ public class DataManager {
         }else{
 
             try {
-                Type type = new TypeToken<Storage>() {}.getType();
+
                 FileReader reader = new FileReader(storageJson);
-                data.storage = gson.fromJson(reader, type);
+                data.storage = gson.fromJson(reader, Storage.class);
 
 
             } catch (FileNotFoundException e) {
@@ -110,9 +107,10 @@ public class DataManager {
 
         if(data.storage == null){
             System.out.println("Unable to load storage");
-            data.storage = new Storage();
-            data.storage.spawn = new SpawnType("world",0.0,0.0,0.0);
-            data.storage.spawnRegion = new Region(new Location(Bukkit.getWorld("world"), 0,0,0), new Location(Bukkit.getWorld("world"), 1,1,1));
+            data.storage = new Storage(new RLocation("world",0.0,0.0,0.0), new Region(new RLocation("world", 0,0,0), new RLocation("world", 1,1,1)));
+
+            data.storage.spawn = new RLocation("world",0.0,0.0,0.0);
+            data.storage.spawnRegion = new Region(new RLocation("world", 0,0,0), new RLocation("world", 1,1,1));
 
         }
 
@@ -129,12 +127,13 @@ public class DataManager {
 
         //load balance, kills, deaths from mysql for all online players
 
-        int i = 0;
-        for(Player p : Bukkit.getOnlinePlayers()) {
+        for(Player p : Bukkit.getOnlinePlayers())
             data.playersCache.add(data.getPlayer(p));
-            i++;
-        }
-        System.out.println("Loaded "+ i+" Players");
+
+
+        System.out.println("Cache size "+data.playersCache.size());
+
+
 
 
 
@@ -146,9 +145,8 @@ public class DataManager {
         //save kits.json
         try {
             FileWriter writer = new FileWriter(kitJson);
+            String json = gson.toJson(data.kits);
 
-            Type type = new TypeToken<HashMap<String, ArrayList<KitItem>>>() {}.getType();
-            String json = gson.toJson(data.kits, type);
 
             writer.write(json);
             writer.close();
@@ -160,14 +158,14 @@ public class DataManager {
         }
 
         //save storage.json
-        gson =  new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
+        gson =  new Gson();
+
         try {
             FileWriter writer = new FileWriter(storageJson);
 
+            Type type = new TypeToken<Storage>() {}.getType();
+            String json = gson.toJson(data.storage, type);
 
-            String json = gson.toJson(data.storage);
 
             writer.write(json);
             writer.close();
@@ -179,16 +177,16 @@ public class DataManager {
         }
 
 
-
-
-
-
+        System.out.println("Cache size "+data.playersCache.size());
+        //save all cache data to mysql
         int i = 0;
-        for(PvPPlayer p : data.playersCache) {
+        for(PvPPlayer p : data.playersCache){
+            System.out.println("Saving: "+ p.getUUID());
             p.save();
             i++;
         }
         System.out.println("Saved "+ i+" Players");
+
 
 
     }

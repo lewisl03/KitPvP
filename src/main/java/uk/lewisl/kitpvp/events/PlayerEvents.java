@@ -1,6 +1,5 @@
 package uk.lewisl.kitpvp.events;
 
-import net.kettlemc.nocroptrample.event.CropTrampleEvent;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;

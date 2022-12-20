@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import uk.lewisl.kitpvp.KitPvp;
 import uk.lewisl.kitpvp.commands.subCommands.Setup;
 import uk.lewisl.kitpvp.types.Region;
+import uk.lewisl.kitpvp.util.Maths;
 
 public class UseWandEvent implements Listener {
 
@@ -31,7 +32,7 @@ public class UseWandEvent implements Listener {
             {
                 region = new Region();
             }
-            region.setPos1(event.getClickedBlock().getLocation());
+            region.setPos1(Maths.LoctoRLoc(event.getClickedBlock().getLocation()));
             KitPvp.getPlugin().addRegion(player, region);
             player.sendMessage("Position 1 set at X: " + Integer.toString(region.getPos1().getBlockX())+", Y: "+Integer.toString(region.getPos1().getBlockY())+ " Z: "+Integer.toString(region.getPos1().getBlockZ()));
 
@@ -45,7 +46,7 @@ public class UseWandEvent implements Listener {
             {
                 region = new Region();
             }
-            region.setPos2(event.getClickedBlock().getLocation());
+            region.setPos2(Maths.LoctoRLoc(event.getClickedBlock().getLocation()));
             KitPvp.getPlugin().addRegion(player, region);
 
             player.sendMessage("Position 2 set at X: " + Integer.toString(region.getPos2().getBlockX())+", Y: "+Integer.toString(region.getPos2().getBlockY())+ " Z: "+Integer.toString(region.getPos2().getBlockZ()));

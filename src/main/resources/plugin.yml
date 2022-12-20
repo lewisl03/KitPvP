@@ -19,6 +19,7 @@ commands:
     aliases:
       - kitdel
       - kitremove
+      - kitrem
   kitcreate:
     description: create a kit
     usage: /kitcreate (name)
@@ -29,10 +30,11 @@ commands:
        usage: /kitpvp
        aliases:
          - kp
-  balance:
-    description: get your or another players balance
-    usage: /balance
-    aliases:
-      - bal
-      - coins
-      - coin
+  coins:
+    description: get your or another players coins
+    usage: /coins
+    aliases: [bal, coins, coin, balance]
+
+  stats:
+    description: get the stats of yourself or another player
+    usage: /stats

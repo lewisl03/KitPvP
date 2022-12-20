@@ -9,11 +9,11 @@ import java.util.HashSet;
 
 public class Region
 {
-    private Location pos1;
-    private Location pos2;
+    private RLocation pos1;
+    private RLocation pos2;
     private ArrayList<Chunk> innerChunks = null;
 
-    public Region(Location pos1, Location pos2)
+    public Region(RLocation pos1, RLocation pos2)
     {
         this.pos1 = pos1;
         this.pos2 = pos2;
@@ -122,22 +122,22 @@ public class Region
         }
     }
 
-    public void setPos1(Location pos1)
+    public void setPos1(RLocation pos1)
     {
         this.pos1 = pos1;
     }
 
-    public void setPos2(Location pos2)
+    public void setPos2(RLocation pos2)
     {
         this.pos2 = pos2;
     }
 
-    public Location getPos1()
+    public RLocation getPos1()
     {
-        return pos1;
+       return pos1;
     }
 
-    public Location getPos2()
+    public RLocation getPos2()
     {
         return pos2;
     }
