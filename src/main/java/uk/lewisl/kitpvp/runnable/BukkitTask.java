@@ -12,7 +12,8 @@ public abstract class BukkitTask implements Runnable
     // Set delayed task
     public BukkitTask(long delay)
     {
-        this.id = Bukkit.getScheduler().scheduleSyncDelayedTask(KitPvp.getPlugin(), this, delay);
+
+        this.id = Bukkit.getScheduler().scheduleAsyncDelayedTask(KitPvp.getPlugin(), this, delay);
         delayed = delay > 0;
         repeating = false;
     }
@@ -20,7 +21,8 @@ public abstract class BukkitTask implements Runnable
     // Set delayed repeating task
     public BukkitTask(long delay, long period)
     {
-        this.id = Bukkit.getScheduler().scheduleSyncRepeatingTask(KitPvp.getPlugin(), this, delay, period);
+
+        this.id =Bukkit.getScheduler().scheduleAsyncRepeatingTask(KitPvp.getPlugin(), this, delay, period);
         delayed = delay > 0;
         repeating = true;
     }

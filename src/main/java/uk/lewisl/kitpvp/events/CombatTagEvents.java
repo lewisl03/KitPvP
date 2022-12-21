@@ -63,7 +63,6 @@ public class CombatTagEvents implements Listener {
         player.setCombatTag();
         damager.setCombatTag();
         player.setLastPersonToHit(damager.getUUID());
-        System.out.println("Method >> "+ player.getLastPersonToHit());
 
         if(!player.isCombatTagged())
             p.sendMessage("You have been combat tagged for " + KitPvp.configManager.getConfig().getLong("combatTag.TagTime") + " seconds");

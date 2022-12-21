@@ -11,6 +11,7 @@ import uk.lewisl.kitpvp.data.ConfigManager;
 import uk.lewisl.kitpvp.data.DataManager;
 import uk.lewisl.kitpvp.data.MySQL;
 import uk.lewisl.kitpvp.events.*;
+import uk.lewisl.kitpvp.runnable.BowlRemover;
 import uk.lewisl.kitpvp.runnable.CombatTagChecker;
 import uk.lewisl.kitpvp.runnable.PlayerLocationChecker;
 import uk.lewisl.kitpvp.runnable.ScoreboardUpdater;
@@ -30,6 +31,7 @@ public final class KitPvp extends JavaPlugin {
     private PlayerLocationChecker playerLocationChecker;
     private CombatTagChecker combatTagChecker;
     private ScoreboardUpdater scoreboardUpdater;
+    private BowlRemover bowlRemover;
 
     @Override
     public void onEnable() {
@@ -94,6 +96,7 @@ public final class KitPvp extends JavaPlugin {
         if(this.playerLocationChecker != null){this.playerLocationChecker.cancel();}
         if(this.combatTagChecker != null){this.combatTagChecker.cancel();}
         if(this.scoreboardUpdater != null){this.scoreboardUpdater.cancel();}
+        if(this.bowlRemover != null){this.bowlRemover.cancel();}
     }
 
 
@@ -101,6 +104,7 @@ public final class KitPvp extends JavaPlugin {
         this.playerLocationChecker = new PlayerLocationChecker(0, 2L);
         this.combatTagChecker = new CombatTagChecker(0, 5L);
         this.scoreboardUpdater = new ScoreboardUpdater(0, 20L);
+        this.bowlRemover = new BowlRemover(0, 2L);
         System.out.println("Setup async tasks!");
     }
 

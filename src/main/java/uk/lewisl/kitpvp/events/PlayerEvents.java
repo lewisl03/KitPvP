@@ -52,7 +52,7 @@ public class PlayerEvents implements Listener {
 //instant mushroom stew healing
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
-        if(e.getClickedBlock() == null){return;}
+
 
         Player p = e.getPlayer();
         if (p.getHealth() == 20) {
@@ -69,6 +69,7 @@ public class PlayerEvents implements Listener {
             }
         }
 
+        if(e.getClickedBlock() == null){return;}
         if(e.getClickedBlock().getType().equals(Material.CHEST) || e.getClickedBlock().getType().equals(Material.TRAPPED_CHEST) &&  e.getAction() == Action.RIGHT_CLICK_BLOCK){
             if(!PlayerUtil.bypass(e.getPlayer())){
                 e.setCancelled(true);
